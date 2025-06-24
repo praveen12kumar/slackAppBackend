@@ -3,6 +3,7 @@ import connectDB from './config/dbConnect.js';
 import { PORT } from './config/serverConfig.js'
 import apiRouter from './routes/apiRoutes.js';
 
+
 const app = express();
 app.use(express.json({ extended: true }));
 

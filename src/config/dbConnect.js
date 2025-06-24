@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 import {DB_NAME,MONGO_DB_URI,NODE_ENV} from './serverConfig.js';
 
-
 export default async function connectDB() {
     try {
         if(NODE_ENV === 'development') {
