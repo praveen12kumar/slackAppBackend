@@ -10,6 +10,15 @@ const workspaceRepository = {
     ...crudRepository(Workspace),
 
 
+    getWorkspaceDetailsById: async function (workSpaceId) {
+        const workSpace = await Workspace.findById(workSpaceId ).populate("members.memberId", 'username email avatar').populate("channels");
+        
+        if(!workSpace) 
+            throw new NotFound("WorkSpace", workSpaceId); 
+        
+        return workSpace;
+    },
+
     getWorkSpaceByName: async function (workSpacename) {
         const workSpace = await Workspace.findOne({ name: workSpacename });
         if(!workSpace) 

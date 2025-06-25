@@ -2,11 +2,12 @@
 import { StatusCodes } from "http-status-codes";
 
 import logger from "../config/logger.config.js";
-import { createWorkspaceService, 
+import { addMemberToWorkspaceService, createWorkspaceService, 
         deleteWorkspaceService, 
         getWorkspaceDetailsByJoinCodeService, 
         getWorkspaceService, 
-        getWorkspacesUserIsMemberOfService } 
+        getWorkspacesUserIsMemberOfService, 
+        updateWorkspaceService} 
         from "../services/workspaceService.js";
 import { successResponse } from '../utils/common/responseObject.js';
 import { customErrorResponse } from "../utils/common/responseObject.js";
@@ -93,3 +94,31 @@ export const getWorkspaceDetailsByJoinCodeController = async(req, res, next) => 
         return next (new InternalServerError(error.message));
     }
 }
+
+export const updatedWorkspaceController = async(req, res, next) => {
+    try {
+    const response = await updateWorkspaceService(req.params.workspaceId, req.body, req.user);
+    
+    return res.status(StatusCodes.OK).json(successResponse(response, "Workspace updated successfully"));
+
+    } catch (error) {
+        if(error.statusCode) {
+            return res.status(error.statusCode).json(customErrorResponse(error));
+        }
+        return next (new InternalServerError(error.message));
+    }
+}
+
+
+export const addMemberToWorkspaceController = async(req, res, next) => {
+    try {
+        const response = await addMemberToWorkspaceService(req.params.workspaceId, req.body.memberId, req.body.role, req.user);
+        return res.status(StatusCodes.OK).json(successResponse(response, "Member added to workspace successfully"));
+    } catch (error) {
+        if(error.statusCode) {
+            return res.status(error.statusCode).json(customErrorResponse(error));
+        }
+        return next (new InternalServerError(error.message));
+    }
+}
+

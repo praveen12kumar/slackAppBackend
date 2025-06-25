@@ -6,7 +6,8 @@ import workspaceRepository from "../repository/workSpaceRepository.js";
 import {BadRequest, NotFound, UnAuthorized} from '../utils/errors/index.js';
 import ValidationError from '../utils/errors/validationError.js';
 
-const isUserAdminOfWorkspace = (userId, workspace) => {
+const isUserAdminOfWorkspace = (workspace, userId) => {
+    //console.log("workspace", workspace, userId);
     return workspace.members.find((member) => member.memberId.toString() === userId.toString() && member.role === "admin");
 }
 
@@ -150,12 +151,13 @@ export const updateWorkspaceService = async(workspaceId, workspaceData, userId)=
 }
 
 export const addMemberToWorkspaceService = async (workspaceId, memberId, role, userId) => {
+    //console.log('addMemberToWorkspaceService', workspaceId, memberId, role, userId);
   try {
     const workspace = await workspaceRepository.getById(workspaceId);
     if (!workspace) {
       throw new NotFound("Workspace", workspaceId);
     }
-
+    //console.log("workspace", workspace);
     const isAdmin = isUserAdminOfWorkspace(workspace, userId);
     if (!isAdmin) {
       throw new UnAuthorized("User is not an admin of this workspace");
@@ -168,11 +170,11 @@ export const addMemberToWorkspaceService = async (workspaceId, memberId, role, u
 
     const isMember = isUserMemberOfWorkspace(workspace, memberId);
     if (isMember) {
-      throw new BadRequest("User", "User already part of workspace");
+      throw new BadRequest("User", "User already member of workspace");
     }
 
     const response = await workspaceRepository.addMemberToWorkspace(
-      workspaceId,
+      workspace,
       memberId,
       role
     );
@@ -224,35 +226,27 @@ export const addChannelToWorkspaceService = async (
   }
 };
 
-// export const joinWorkspaceService = async (workspaceId, joinCode, userId) => {
-//   try {
-//     const workspace =
-//       await workspaceRepository.getWorkspaceDetailsById(workspaceId);
-//     if (!workspace) {
-//       throw new ClientError({
-//         explanation: 'Invalid data sent from the client',
-//         message: 'Workspace not found',
-//         statusCode: StatusCodes.NOT_FOUND
-//       });
-//     }
+export const joinWorkspaceService = async (workspaceId, joinCode, userId) => {
+  try {
+    const workspace =
+      await workspaceRepository.getWorkspaceDetailsById(workspaceId);
+    if (!workspace) {
+      throw new NotFound("Workspace", workspaceId);
+    }
 
-//     if (workspace.joinCode !== joinCode) {
-//       throw new ClientError({
-//         explanation: 'Invalid data sent from the client',
-//         message: 'Invalid join code',
-//         statusCode: StatusCodes.UNAUTHORIZED
-//       });
-//     }
+    if (workspace.joinCode !== joinCode) {
+      throw new BadRequest("Workspace", "Invalid join code");
+    }
 
-//     const updatedWorkspace = await workspaceRepository.addMemberToWorkspace(
-//       workspaceId,
-//       userId,
-//       'member'
-//     );
+    const updatedWorkspace = await workspaceRepository.addMemberToWorkspace(
+      workspaceId,
+      userId,
+      'member'
+    );
 
-//     return updatedWorkspace;
-//   } catch (error) {
-//     console.log('joinWorkspaceService error', error);
-//     throw error;
-//   }
-// };
+    return updatedWorkspace;
+  } catch (error) {
+    console.log('joinWorkspaceService error', error);
+    throw error;
+  }
+};
