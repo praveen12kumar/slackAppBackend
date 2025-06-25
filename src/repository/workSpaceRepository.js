@@ -3,10 +3,11 @@
 import User from "../schema/userSchema.js";
 import Workspace from "../schema/workspaceSchema.js";
 import { BadRequest,NotFound } from "../utils/errors.js";
+import channelRepository from "./channelRepository.js";
 import crudRepository from "./crudRepository";
 
 const workSpaceRepository = {
-    ...crudRepository("WorkSpace"),
+    ...crudRepository(Workspace),
 
 
     getWorkSpaceByName: async function (workSpacename) {
@@ -48,9 +49,32 @@ const workSpaceRepository = {
         return workSpace;
     },
 
-    addChannelToWorkSpace: function(){},
+    addChannelToWorkSpace: async function(workSpaceId, channeName){
+        const workSpace = await Workspace.findById(workSpaceId ).populate("channels");
+        
+        if(!workSpace) 
+            throw new NotFound("WorkSpace", workSpaceId);
+        
+        const isChannelAlreadyPartOfWorkSpace = workSpace.channels.find((channel) => channel.name === channeName);
 
-    fetchAllWorkspaceByMemberId: function(){}
+        if(isChannelAlreadyPartOfWorkSpace) 
+            throw new BadRequest("Channel", "Channel already part of workspace");
+
+        const channel = await channelRepository.create({name: channeName});
+        workSpace.channels.push(channel._id);
+        await workSpace.save();
+        
+        return workSpace;
+    },
+
+    fetchAllWorkspaceByMemberId: async function(memberId){
+        const workSpace = await Workspace.find({
+            'members.memberId': memberId
+        }).populate('members.memberId', 'username email avatar');
+
+        return workSpace;
+
+    }
 }
 
 
