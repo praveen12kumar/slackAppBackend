@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 
-import { BaseError } from "./base.error.js";
+import { BaseError } from "./baseError.js";
 
 class NotImplemented extends BaseError{
 
@@ -9,6 +9,4 @@ class NotImplemented extends BaseError{
     }
 }
 
-export{
-    NotImplemented
-}
+export default NotImplemented;

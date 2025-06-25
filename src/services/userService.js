@@ -2,8 +2,7 @@ import bcrypt from "bcryptjs";
 
 import userRepository from "../repository/userRepository.js"
 import { generateToken } from "../utils/errors/authUtils.js";
-import BadRequest from "../utils/errors/badRequest.js";
-import NotFound from "../utils/errors/notFound.js";
+import { BadRequest, NotFound } from "../utils/errors/index.js";
 import ValidationError from "../utils/errors/validationError.js";
 
 export const signUpService = async(data)=>{

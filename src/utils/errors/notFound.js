@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 
-import { BaseError } from "./base.error.js";
+import { BaseError } from "./baseError.js";
 
 class NotFound extends BaseError{
 
@@ -14,4 +14,4 @@ class NotFound extends BaseError{
     }
 };
 
-export {NotFound};
+export default NotFound;

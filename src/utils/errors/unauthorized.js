@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 
-import { BaseError } from "./base.error.js";
+import { BaseError } from "./baseError.js";
 
 class UnAuthorized extends BaseError{
 
@@ -11,6 +11,4 @@ class UnAuthorized extends BaseError{
 };
 
 
-export {
-    UnAuthorized
-};
+export default UnAuthorized;

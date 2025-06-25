@@ -8,6 +8,4 @@ class BadRequest extends BaseError{
     }
 };
 
-export{
-    BadRequest
-}
+export default BadRequest;
