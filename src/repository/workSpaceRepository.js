@@ -73,7 +73,10 @@ const workspaceRepository = {
         if(isChannelAlreadyPartOfWorkSpace) 
             throw new BadRequest("Channel", "Channel already part of workspace");
 
-        const channel = await channelRepository.create({name: channelName});
+        const channel = await channelRepository.create({
+                                                        name: channelName,
+                                                        workspaceId: workSpaceId
+                                                    });
         //console.log("channel", channel);
         workSpace.channels.push(channel);
         await workSpace.save();
