@@ -49,7 +49,7 @@ export const signInService = async(data)=>{
     }
 
   } catch (error) {
-    console.log(`Error in signing in user: ${error}`);
+    console.log(`Error in signing in user: ${error}`);    
     throw error;
   }
 }
