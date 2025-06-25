@@ -20,14 +20,14 @@ const workspaceRepository = {
 
 
     getWorkSpaceByJoinCode: async function (joinCode) {
-        const workSpace = await Workspace.findOne({ joinCode: joinCode });
+        const workSpace = await Workspace.findOne({ joinCode });
         if(!workSpace) 
             throw new NotFound("WorkSpace", joinCode);
         return workSpace;
     },
 
 
-    addMemberToWorkSpace: async function(workSpaceId, memberId, role){
+    addMemberToWorkspace: async function(workSpaceId, memberId, role){
         //console.log("workSpaceId", workSpaceId, memberId, role);
         const workSpace = await Workspace.findById(workSpaceId );
         
@@ -51,7 +51,7 @@ const workspaceRepository = {
         return workSpace;
     },
 
-    addChannelToWorkSpace: async function(workSpaceId, channelName){
+    addChannelToWorkspace: async function(workSpaceId, channelName){
         
         const workSpace = await Workspace.findById(workSpaceId ).populate("channels");
         

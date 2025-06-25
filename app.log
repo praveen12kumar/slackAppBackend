@@ -20,3 +20,4 @@
 2025-06-25 16:59:23 ERROR: E11000 duplicate key error collection: messageSlackApp.workspaces index: name_1 dup key: { name: "test" }
 2025-06-25 17:03:50 ERROR: E11000 duplicate key error collection: messageSlackApp.workspaces index: name_1 dup key: { name: "test" }
 2025-06-25 18:31:18 ERROR: E11000 duplicate key error collection: messageSlackApp.workspaces index: name_1 dup key: { name: "test" }
+2025-06-25 20:18:27 ERROR: E11000 duplicate key error collection: messageSlackApp.workspaces index: name_1 dup key: { name: "Dev team" }
