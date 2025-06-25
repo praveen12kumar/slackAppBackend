@@ -2,9 +2,9 @@
 
 import User from "../schema/userSchema.js";
 import Workspace from "../schema/workspaceSchema.js";
-import { BadRequest,NotFound } from "../utils/errors.js";
+import { BadRequest,NotFound } from "../utils/errors/index.js";
 import channelRepository from "./channelRepository.js";
-import crudRepository from "./crudRepository";
+import crudRepository from "./crudRepository.js";
 
 const workspaceRepository = {
     ...crudRepository(Workspace),
@@ -28,7 +28,9 @@ const workspaceRepository = {
 
 
     addMemberToWorkSpace: async function(workSpaceId, memberId, role){
+        //console.log("workSpaceId", workSpaceId, memberId, role);
         const workSpace = await Workspace.findById(workSpaceId );
+        
         if(!workSpace) 
             throw new NotFound("WorkSpace", workSpaceId); 
         
@@ -49,19 +51,22 @@ const workspaceRepository = {
         return workSpace;
     },
 
-    addChannelToWorkSpace: async function(workSpaceId, channeName){
+    addChannelToWorkSpace: async function(workSpaceId, channelName){
+        
         const workSpace = await Workspace.findById(workSpaceId ).populate("channels");
         
         if(!workSpace) 
             throw new NotFound("WorkSpace", workSpaceId);
         
-        const isChannelAlreadyPartOfWorkSpace = workSpace.channels.find((channel) => channel.name === channeName);
+        const isChannelAlreadyPartOfWorkSpace = workSpace.channels.some((channel) => channel.name.toString() === channelName.toString());
 
+        //console.log("isChannelAlreadyPartOfWorkSpace", isChannelAlreadyPartOfWorkSpace);
         if(isChannelAlreadyPartOfWorkSpace) 
             throw new BadRequest("Channel", "Channel already part of workspace");
 
-        const channel = await channelRepository.create({name: channeName});
-        workSpace.channels.push(channel._id);
+        const channel = await channelRepository.create({name: channelName});
+        //console.log("channel", channel);
+        workSpace.channels.push(channel);
         await workSpace.save();
         
         return workSpace;

@@ -1,1 +1,21 @@
 2025-06-24 17:04:36 INFO: DB connected
+2025-06-25 15:05:21 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 15:10:01 ERROR: E11000 duplicate key error collection: messageSlackApp.workspaces index: name_1 dup key: { name: "test" }
+2025-06-25 15:11:01 ERROR: E11000 duplicate key error collection: messageSlackApp.workspaces index: name_1 dup key: { name: "test" }
+2025-06-25 15:12:20 ERROR: E11000 duplicate key error collection: messageSlackApp.workspaces index: name_1 dup key: { name: "test" }
+2025-06-25 15:13:06 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 15:16:30 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 15:18:23 ERROR: E11000 duplicate key error collection: messageSlackApp.workspaces index: name_1 dup key: { name: "test" }
+2025-06-25 15:22:01 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 15:29:08 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 15:30:38 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 15:36:20 ERROR: E11000 duplicate key error collection: messageSlackApp.workspaces index: name_1 dup key: { name: "test" }
+2025-06-25 15:36:34 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 15:38:01 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 15:40:01 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 15:41:12 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 15:54:23 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 15:56:49 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 15:58:46 ERROR: Channel validation failed: workspaceId: Workspace ID is required
+2025-06-25 16:59:23 ERROR: E11000 duplicate key error collection: messageSlackApp.workspaces index: name_1 dup key: { name: "test" }
+2025-06-25 17:03:50 ERROR: E11000 duplicate key error collection: messageSlackApp.workspaces index: name_1 dup key: { name: "test" }

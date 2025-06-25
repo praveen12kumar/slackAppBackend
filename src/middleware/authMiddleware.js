@@ -2,7 +2,7 @@
 import jwt from "jsonwebtoken";
 
 import logger from "../config/logger.config.js";
-import { JWT_SECRET } from "../config/serverConfig";
+import { JWT_SECRET } from "../config/serverConfig.js";
 import userRepository from "../repository/userRepository.js";
 import { InternalServerError, UnAuthorized } from "../utils/errors/index.js";
 
@@ -24,7 +24,7 @@ export const isAuthenticated = async(req, res, next)=>{
     if(!user){
         return next(new UnAuthorized('User not found with auth token provided'));
     }
-    req.user = user;
+    req.user = user.id;
     next();
 
     } catch (error) {

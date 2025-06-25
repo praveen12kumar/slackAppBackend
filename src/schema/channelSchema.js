@@ -9,7 +9,6 @@ const channelSchema = new mongoose.Schema(
     workspaceId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Workspace',
-      required: [true, 'Workspace ID is required']
     }
   },
 
