@@ -1,13 +1,12 @@
 import express from 'express';
-import { StatusCodes } from 'http-status-codes';
+
+import { signup } from '../../controllers/userController.js';
 
 const router = express.Router();
 
 
  
-router.use('/', (req, res)=>{
-    res.status(StatusCodes.OK).send('Users');
-})
+router.post('/signup', signup);
 
 
 export default router;

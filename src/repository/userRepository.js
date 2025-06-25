@@ -15,7 +15,7 @@ const userRepository = {...crudRepository(User),
 }
 
 
-export default new userRepository();
+export default userRepository;
 
 
 
