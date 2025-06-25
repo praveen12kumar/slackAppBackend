@@ -2,7 +2,7 @@
 import { StatusCodes } from "http-status-codes";
 
 import logger from "../config/logger.config.js";
-import { addMemberToWorkspaceService, createWorkspaceService, 
+import { addChannelToWorkspaceService, addMemberToWorkspaceService, createWorkspaceService, 
         deleteWorkspaceService, 
         getWorkspaceDetailsByJoinCodeService, 
         getWorkspaceService, 
@@ -112,7 +112,11 @@ export const updatedWorkspaceController = async(req, res, next) => {
 
 export const addMemberToWorkspaceController = async(req, res, next) => {
     try {
-        const response = await addMemberToWorkspaceService(req.params.workspaceId, req.body.memberId, req.body.role, req.user);
+        const response = await addMemberToWorkspaceService(req.params.workspaceId, 
+                                                            req.body.memberId, 
+                                                            req.body.role || 'member',
+                                                            req.user);
+
         return res.status(StatusCodes.OK).json(successResponse(response, "Member added to workspace successfully"));
     } catch (error) {
         if(error.statusCode) {
@@ -122,3 +126,21 @@ export const addMemberToWorkspaceController = async(req, res, next) => {
     }
 }
 
+
+export const addChannelToWorkspaceController = async(req, res, next) => {
+    try {
+        const response = await addChannelToWorkspaceService(req.params.workspaceId,
+                                                            req.body.channelName,
+                                                            req.user
+                                                        )
+
+
+           return res.status(StatusCodes.OK).json(successResponse(response, "Channel added to workspace successfully"));
+
+    } catch (error) {
+        if(error.statusCode) {
+            return res.status(error.statusCode).json(customErrorResponse(error));
+        }
+        return next (new InternalServerError(error.message));
+    }
+}

@@ -8,7 +8,9 @@ import ValidationError from '../utils/errors/validationError.js';
 
 const isUserAdminOfWorkspace = (workspace, userId) => {
     //console.log("workspace", workspace, userId);
-    return workspace.members.find((member) => member.memberId.toString() === userId.toString() && member.role === "admin");
+    return workspace.members.find((member) => member.memberId.toString()  === userId.toString() 
+                                        || member.memberId._id.toString() === userId.toString()
+    && member.role === "admin");
 }
 
 const isUserMemberOfWorkspace = (workspace, userId)=>{
@@ -195,8 +197,7 @@ export const addChannelToWorkspaceService = async (
   userId
 ) => {
   try {
-    const workspace =
-      await workspaceRepository.getWorkspaceDetailsById(workspaceId);
+    const workspace = await workspaceRepository.getWorkspaceDetailsById(workspaceId);
     if (!workspace) {
        throw new NotFound("Workspace", workspaceId);
     }
