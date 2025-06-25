@@ -1,4 +1,9 @@
+import bcrypt from "bcryptjs";
+
 import userRepository from "../repository/userRepository.js"
+import { generateToken } from "../utils/errors/authUtils.js";
+import BadRequest from "../utils/errors/badRequest.js";
+import NotFound from "../utils/errors/notFound.js";
 import ValidationError from "../utils/errors/validationError.js";
 
 export const signUpService = async(data)=>{
@@ -19,5 +24,33 @@ export const signUpService = async(data)=>{
         error: ['A user with same email or username already exists']
       }, `A user with same email or username already exists`);
     }
+  }
+}
+
+
+
+export const signInService = async(data)=>{
+  try {
+    const user = await userRepository.getUserByEmail(data.email);
+    if(!user){
+      throw new NotFound("email", data.email);
+    }
+    // match password
+
+    const isMatch = await bcrypt.compareSync(data.password, user.password);
+    if(!isMatch){
+      throw new BadRequest("password", data.password);
+    }
+
+    return {
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar,
+      token: generateToken({_id: user._id, email: user.email})
+    }
+
+  } catch (error) {
+    console.log(`Error in signing in user: ${error}`);
+    throw error;
   }
 }
