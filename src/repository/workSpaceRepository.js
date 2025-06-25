@@ -6,7 +6,7 @@ import { BadRequest,NotFound } from "../utils/errors.js";
 import channelRepository from "./channelRepository.js";
 import crudRepository from "./crudRepository";
 
-const workSpaceRepository = {
+const workspaceRepository = {
     ...crudRepository(Workspace),
 
 
@@ -79,5 +79,5 @@ const workSpaceRepository = {
 
 
 
-export default workSpaceRepository;
+export default workspaceRepository;
 
