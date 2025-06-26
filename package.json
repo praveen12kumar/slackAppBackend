@@ -17,6 +17,7 @@
     "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
     "bull": "^4.16.5",
+    "bullmq": "^5.56.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
@@ -26,6 +27,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.0",
     "nodemailer": "^7.0.3",
+    "uninstall": "^0.0.0",
     "uuid": "^11.1.0",
     "winston": "^3.17.0",
     "zod": "^3.25.67"
