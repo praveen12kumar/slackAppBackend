@@ -13,7 +13,8 @@ const isUserAdminOfWorkspace = (workspace, userId) => {
     && member.role === "admin");
 }
 
-const isUserMemberOfWorkspace = (workspace, userId)=>{
+export const isUserMemberOfWorkspace = (workspace, userId)=>{
+  //console.log("workspace", workspace, userId);
     return workspace.members.find((member) => member.memberId.toString() === userId.toString());
 }
 

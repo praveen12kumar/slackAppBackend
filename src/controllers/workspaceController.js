@@ -109,6 +109,7 @@ export const updatedWorkspaceController = async(req, res, next) => {
     }
 }
 
+//Todo: Add member with email
 
 export const addMemberToWorkspaceController = async(req, res, next) => {
     try {
