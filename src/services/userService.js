@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 
 import userRepository from "../repository/userRepository.js"
-import { generateToken } from "../utils/errors/authUtils.js";
+import { generateToken } from "../utils/common/authUtils.js";
 import { BadRequest, NotFound } from "../utils/errors/index.js";
 import ValidationError from "../utils/errors/validationError.js";
 
@@ -12,7 +12,6 @@ export const signUpService = async(data)=>{
 
    } catch (error) {
     console.log(`Error in creating user: ${error}`);
-    console.log("errors",error);
     if(error.name === 'ValidationError'){  
       throw new ValidationError({
         error: error.errors

@@ -1,10 +1,13 @@
 import {v4 as uuidv4} from 'uuid';
 
+import { addEmailToMailQueue } from '../producer/mailQueueProducer.js';
 import channelRepository from '../repository/channelRepository.js';
 import userRepository from '../repository/userRepository.js';
 import workspaceRepository from "../repository/workSpaceRepository.js";
+import {workspaceJoinMail} from '../utils/common/mailObject.js';
 import {BadRequest, NotFound, UnAuthorized} from '../utils/errors/index.js';
 import ValidationError from '../utils/errors/validationError.js';
+
 
 const isUserAdminOfWorkspace = (workspace, userId) => {
     //console.log("workspace", workspace, userId);
@@ -181,10 +184,11 @@ export const addMemberToWorkspaceService = async (workspaceId, memberId, role, u
       memberId,
       role
     );
-    // addEmailtoMailQueue({
-    //   ...workspaceJoinMail(workspace),
-    //   to: isValidUser.email
-    // });
+    addEmailToMailQueue(
+      {...workspaceJoinMail(workspace),
+        to: isValidUser.email
+      });
+      
     return response;
   } catch (error) {
     console.log('addMemberToWorkspaceService error', error);
