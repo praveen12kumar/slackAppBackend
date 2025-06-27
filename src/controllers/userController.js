@@ -6,7 +6,7 @@ import { customErrorResponse, internalErrorResponse, successResponse } from "../
 
 
 export const signup = async(req, res)=>{
-    //console.log("user controller", req.body);
+    // console.log("user controller", req.body);
     try {
         const user = await signUpService(req.body);
         return res.status(StatusCodes.CREATED).json(successResponse(user, "User created successfully"))

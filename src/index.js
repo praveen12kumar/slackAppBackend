@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 import {createServer} from 'http';
 import { Server } from 'socket.io';
@@ -10,7 +11,6 @@ import messageSocketHandlers from './controllers/messageSocketController.js';
 import apiRouter from './routes/apiRoutes.js';
 import { errorHandler } from './utils/errorHandle.js';
 
-
 const app = express();
 
 app.use(express.json());
@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 const server = createServer(app);
 const io = new Server(server);
 
+app.use(cors());
 
 app.use('/ui', serverAdapter.getRouter());
 
