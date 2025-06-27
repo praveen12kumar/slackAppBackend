@@ -15,9 +15,16 @@ export const getChannelByIdService = async(channelId, userId) =>{
             throw new UnAuthorized("User is not a member of this workspace");
         }
 
-        //const messages = await channelRepository.getPaginatedMessaged({channelId}, 1, 20);
+        const messages = await channelRepository.getPaginatedMessaged({channelId}, 1, 20);
         
-        return channel
+        return{
+            messages,
+            _id: channel._id,
+            name: channel.name,
+            createdAt: channel.createdAt,
+            updatedAt: channel.updatedAt,
+            workspaceId: channel.workspaceId
+        }
     } catch (error) {
         console.log(`Error in getting channel by id: ${error}`);
         throw error;
