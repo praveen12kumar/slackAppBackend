@@ -41,6 +41,7 @@ export const signInService = async(data)=>{
     }
 
     return {
+      _id: user._id,
       username: user.username,
       email: user.email,
       avatar: user.avatar,

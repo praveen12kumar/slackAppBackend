@@ -22,10 +22,11 @@ export const customErrorResponse = (error) => {
 
 
 export const successResponse = (data, message)=>{
+ // console.log("success response", data, message);
     return{
         success: true,
-        data: data,
-        message: message,
+        data,
+        message,
         err: {}
     }
 }

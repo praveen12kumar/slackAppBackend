@@ -9,16 +9,15 @@ import {BadRequest, NotFound, UnAuthorized} from '../utils/errors/index.js';
 import ValidationError from '../utils/errors/validationError.js';
 
 
-const isUserAdminOfWorkspace = (workspace, userId) => {
-    //console.log("workspace", workspace, userId);
-    return workspace.members.find((member) => member.memberId.toString()  === userId.toString() 
-                                        || member.memberId._id.toString() === userId.toString()
+const isUserAdminOfWorkspace = (workspace, userId) => {    
+    return workspace.members.find((member) => member.memberId.toString()  === userId 
+                                        || member.memberId._id.toString() === userId
     && member.role === "admin");
 }
 
 export const isUserMemberOfWorkspace = (workspace, userId)=>{
-  //console.log("workspace", workspace, userId);
-    return workspace.members.find((member) => member.memberId.toString() === userId.toString());
+   //console.log("workspace", workspace, userId);
+    return workspace.members.find((member) => member.memberId?._id.toString() === userId);
 }
 
 const isChannelAlreadyPartOfWorkspace = (workspace, channelName) => {
@@ -74,15 +73,16 @@ export const getWorkspacesUserIsMemberOfService = async(userId)=>{
 
 
 export const deleteWorkspaceService = async(workspaceId, userId)=>{
+  
     try{
         const workspace = await workspaceRepository.getById(workspaceId);
-
+        
         if(!workspace){
             throw new NotFound("Workspace", workspaceId);
         }
 
-        const isAllowed = isUserAdminOfWorkspace(userId, workspace); 
-
+        const isAllowed = isUserAdminOfWorkspace(workspace, userId); 
+        console.log("isAllowed", isAllowed);
         // delete channels
         if(isAllowed){
             await channelRepository.deleteMany(workspace.channels);
@@ -101,7 +101,7 @@ export const deleteWorkspaceService = async(workspaceId, userId)=>{
 
 export const getWorkspaceService = async(workspaceId, userId)=>{
     try {
-        const workspace = await workspaceRepository.getById(workspaceId);
+        const workspace = await workspaceRepository.getWorkspaceDetailsById(workspaceId);
 
         if(!workspace){
             throw new NotFound("Workspace", workspaceId);
@@ -144,6 +144,7 @@ export const updateWorkspaceService = async(workspaceId, workspaceData, userId)=
             throw new NotFound("Workspace", workspaceId);
         }
         const isAdmin = isUserMemberOfWorkspace(workspace, userId);
+        console.log("isAdmin", isAdmin);
         if(!isAdmin){
             throw new UnAuthorized("User is not a member of this workspace");
         }

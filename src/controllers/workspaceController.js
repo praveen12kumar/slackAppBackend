@@ -38,7 +38,6 @@ export const createWorkspaceController = async (req, res, next) => {
 
 
 export const getWorkspacesUserIsMemberOfController = async(req, res, next) => {
-    
     try {
         const response = await getWorkspacesUserIsMemberOfService(req.user);
         return res.status(StatusCodes.OK).json(
