@@ -261,7 +261,6 @@ export const joinWorkspaceService = async (workspaceId, joinCode, userId) => {
 
 
 export const resetWorkspaceJoinCodeService = async(workspaceId, userId)=>{
-
   try {
     const workspace = await workspaceRepository.getById(workspaceId);
     
@@ -279,3 +278,5 @@ export const resetWorkspaceJoinCodeService = async(workspaceId, userId)=>{
     throw error;
   }
 }
+
+
