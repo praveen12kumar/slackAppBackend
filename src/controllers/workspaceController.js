@@ -2,11 +2,14 @@
 import { StatusCodes } from "http-status-codes";
 
 import logger from "../config/logger.config.js";
-import { addChannelToWorkspaceService, addMemberToWorkspaceService, createWorkspaceService, 
+import { addChannelToWorkspaceService, 
+        addMemberToWorkspaceService, 
+        createWorkspaceService, 
         deleteWorkspaceService, 
         getWorkspaceDetailsByJoinCodeService, 
         getWorkspaceService, 
         getWorkspacesUserIsMemberOfService, 
+        resetWorkspaceJoinCodeService, 
         updateWorkspaceService} 
         from "../services/workspaceService.js";
 import { successResponse } from '../utils/common/responseObject.js';
@@ -136,6 +139,22 @@ export const addChannelToWorkspaceController = async(req, res, next) => {
 
 
            return res.status(StatusCodes.OK).json(successResponse(response, "Channel added to workspace successfully"));
+
+    } catch (error) {
+        if(error.statusCode) {
+            return res.status(error.statusCode).json(customErrorResponse(error));
+        }
+        return next (new InternalServerError(error.message));
+    }
+}
+
+
+export const resetJoinCodeController = async(req, res, next) => {
+    try {
+        const response = await resetWorkspaceJoinCodeService(req.params.workspaceId, req.user);
+
+        return res.status(StatusCodes.OK)
+        .json(successResponse(response, "Join code reset successfully"));
 
     } catch (error) {
         if(error.statusCode) {
