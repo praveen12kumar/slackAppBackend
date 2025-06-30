@@ -9,6 +9,7 @@ export const workspaceJoinMail = function(workspace){
 }
 
 export const verifyEmailMail = function (verificationToken) {
+    //console.log("verificationToken", verificationToken);
   return {
     from: MAIL_ID,
     subject: 'Welcome to the app. Please verify your email',

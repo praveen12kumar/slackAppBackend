@@ -6,7 +6,7 @@ import redisConfig from "../config/redisConfig.js";
 
 new Worker('mailQueue', async(job)=>{
     const emailData = job.data;
-    //console.log("Process email", emailData);
+    console.log("Process email", emailData);
 
     try {
         await transporter.sendMail(emailData);

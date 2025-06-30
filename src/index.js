@@ -8,6 +8,7 @@ import connectDB from './config/dbConnect.js';
 import { PORT } from './config/serverConfig.js'
 import channelSocketHandlers from './controllers/channelSocketController.js';
 import messageSocketHandlers from './controllers/messageSocketController.js';
+import { verifyEmailController } from './controllers/userController.js';
 import apiRouter from './routes/apiRoutes.js';
 import { errorHandler } from './utils/errorHandle.js';
 
@@ -24,6 +25,8 @@ app.use(cors());
 app.use('/ui', serverAdapter.getRouter());
 
 app.use('/api', apiRouter)
+
+app.get('/verify/:token', verifyEmailController);
 
 app.use(errorHandler);
 

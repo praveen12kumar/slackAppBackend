@@ -10,7 +10,9 @@ import ValidationError from "../utils/errors/validationError.js";
 
 export const signUpService = async(data)=>{
    try {
-     const newUser = await userRepository.create(data);
+     const newUser = await userRepository.signUpUser(data);
+     console.log("new user", newUser);
+     console.log("verifcation token in new user", newUser.verificationToken);
      
     if (ENABLE_EMAIL_VERIFICATION === 'true') {
       // send verification email
@@ -59,6 +61,35 @@ export const signInService = async(data)=>{
       avatar: user.avatar,
       token: generateToken({_id: user._id, email: user.email})
     }
+
+  } catch (error) {
+    console.log(`Error in signing in user: ${error}`);    
+    throw error;
+  }
+}
+
+
+export const verifyTokenService = async(token)=>{
+  
+  try {
+    const user = await userRepository.getUserByToken(token);
+    
+    if(!user){
+      throw new NotFound("token", token);
+    }
+
+    // check if the token is expired or not
+
+    if(user.verificationTokenExpiry < Date.now()){
+      throw new BadRequest("token", token);
+    };
+
+    user.isVerified = true;
+    user.verificationToken = null;
+    user.verificationTokenExpiry = null;
+    await user.save();
+
+    return user
 
   } catch (error) {
     console.log(`Error in signing in user: ${error}`);    
