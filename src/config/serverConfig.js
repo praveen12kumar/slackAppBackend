@@ -12,10 +12,14 @@ const MAIL_ID = process.env.MAIL_ID;
 const MAIL_PASSWORD = process.env.MAIL_PASSWORD;
 const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const APP_LINK = process.env.APP_LINK || 'http://localhost:3000';
+const ENABLE_EMAIL_VERIFICATION  = process.env.ENABLE_EMAIL_VERIFICATION  || false;
 
 
-
-export { DB_NAME,
+export {         
+        APP_LINK,
+        DB_NAME,
+        ENABLE_EMAIL_VERIFICATION,
         JWT_EXPIRY,
         JWT_SECRET, 
         MAIL_ID, 
@@ -24,5 +28,5 @@ export { DB_NAME,
         NODE_ENV, 
         PORT,
         REDIS_HOST,    
-        REDIS_PORT,
+        REDIS_PORT    
     };

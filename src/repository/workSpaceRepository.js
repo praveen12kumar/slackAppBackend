@@ -37,7 +37,6 @@ const workspaceRepository = {
 
 
     addMemberToWorkspace: async function(workSpaceId, memberId, role){
-        //console.log("workSpaceId", workSpaceId, memberId, role);
         const workSpace = await Workspace.findById(workSpaceId );
         
         if(!workSpace) 

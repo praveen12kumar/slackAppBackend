@@ -1,13 +1,25 @@
 import bcrypt from "bcryptjs";
 
+import { ENABLE_EMAIL_VERIFICATION } from "../config/serverConfig.js";
+import { addEmailToMailQueue } from "../producer/mailQueueProducer.js";
 import userRepository from "../repository/userRepository.js"
 import { generateToken } from "../utils/common/authUtils.js";
+import { verifyEmailMail } from "../utils/common/mailObject.js";
 import { BadRequest, NotFound } from "../utils/errors/index.js";
 import ValidationError from "../utils/errors/validationError.js";
 
 export const signUpService = async(data)=>{
    try {
      const newUser = await userRepository.create(data);
+     
+    if (ENABLE_EMAIL_VERIFICATION === 'true') {
+      // send verification email
+      addEmailToMailQueue({
+        ...verifyEmailMail(newUser.verificationToken),
+        to: newUser.email
+      });
+    }
+     
      return newUser;
 
    } catch (error) {

@@ -173,7 +173,7 @@ export const joinWorkspaceController = async(req, res, next) => {
                                 req.body.joinCode,
                                 req.user);
 
-         return res.status(StatusCodes.Ok)
+         return res.status(StatusCodes.OK)
                     .json(successResponse(response, "Workspace joined successfully"));                        
     } catch (error) {
         if(error.statusCode) {

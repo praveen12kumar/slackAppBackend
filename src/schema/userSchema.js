@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
-
+import {v4 as uuidv4} from 'uuid'
 const userSchema = mongoose.Schema({
     username: {
         type: String,
@@ -48,6 +48,8 @@ userSchema.pre('save', function(next) {
     const SALT = bcrypt.genSaltSync(10);
     user.password = bcrypt.hashSync(user.password, SALT);
     user.avatar = `https://robohash.org/${user.username}`;
+    user.verificationToken = uuidv4().substring(0, 10).toUpperCase();
+    
     next();
 })
 

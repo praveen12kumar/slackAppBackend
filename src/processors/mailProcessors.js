@@ -10,7 +10,7 @@ new Worker('mailQueue', async(job)=>{
 
     try {
         await transporter.sendMail(emailData);
-        //console.log("Email sent successfully", response);
+        //console.log("Email sent successfully", res);
 
     } catch (error) {
         console.log(`Error in processing email: ${error}`);
