@@ -4,6 +4,7 @@ import { UnAuthorized } from "../utils/errors/index.js";
 import { isUserMemberOfWorkspace } from "./workspaceService.js";
 
 export const getMessageService = async(messageParams, page, limit, user)=>{
+    console.log("messageParams", messageParams, page, limit, user);
     
     const channelDetails = await channelRepository.getChannelWithWorkspaceDetails(messageParams.channelId);
 

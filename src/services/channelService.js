@@ -1,10 +1,12 @@
 import channelRepository from "../repository/channelRepository.js";
+import messageRepository from "../repository/messageRepository.js";
 import {NotFound, UnAuthorized} from "../utils/errors/index.js";
 import { isUserMemberOfWorkspace } from "./workspaceService.js";
 
 export const getChannelByIdService = async(channelId, userId) =>{
     try {
         const channel = await channelRepository.getChannelWithWorkspaceDetails(channelId);
+        
         if(!channel || !channel.workspaceId){
             throw new NotFound("Channel or Workspace", channelId);
         }
@@ -15,7 +17,7 @@ export const getChannelByIdService = async(channelId, userId) =>{
             throw new UnAuthorized("User is not a member of this workspace");
         }
 
-        const messages = await channelRepository.getPaginatedMessaged({channelId}, 1, 20);
+        const messages = await messageRepository.getPaginatedMessaged({channelId}, 1, 20);
         
         return{
             messages,

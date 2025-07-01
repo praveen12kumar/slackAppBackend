@@ -5,6 +5,7 @@ import { customErrorResponse, successResponse  } from "../utils/common/responseO
 import { InternalServerError } from "../utils/errors/index.js";
 
 export const getMessagesController = async(req, res, next)=>{
+    console.log("message controller", req.params.channelId);
     try {
         const response = await getMessageService({
             channelId: req.params.channelId,

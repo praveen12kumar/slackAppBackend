@@ -11,8 +11,6 @@ import ValidationError from "../utils/errors/validationError.js";
 export const signUpService = async(data)=>{
    try {
      const newUser = await userRepository.signUpUser(data);
-     console.log("new user", newUser);
-     console.log("verifcation token in new user", newUser.verificationToken);
      
     if (ENABLE_EMAIL_VERIFICATION === 'true') {
       // send verification email

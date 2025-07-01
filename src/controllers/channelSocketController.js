@@ -6,7 +6,7 @@ export default function messageHandlers (io, socket){
         const roomId = data.channelId;
         socket.join(roomId);
         console.log("User Joined channel with: ", roomId, "and",socket.id);
-        cb({
+        cb?.({
             success: true,
             message: "Joined channel successfully",
             data: roomId

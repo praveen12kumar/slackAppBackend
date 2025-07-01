@@ -18,7 +18,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server,{
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
+});
 
 app.use(cors());
 
@@ -32,7 +37,7 @@ app.use(errorHandler);
 
 // Listen for a new client socket connection
 io.on('connection', (socket) => {
-  // console.log('a user connected', socket.id);
+  console.log('a user connected', socket.id);
 
   // // Listen for an event 'messageFromClient' sent by the connected client
   // socket.on('messageFromClient', (data) => {

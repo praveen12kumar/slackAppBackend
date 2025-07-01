@@ -9,6 +9,7 @@ import { InternalServerError } from "../utils/errors/index.js";
 export const getChannelByIdController = async (req, res, next)=>{
     try {
         const response = await getChannelByIdService(req.params.channelId, req.user);
+        
         return res.status(StatusCodes.OK).json(successResponse(response, "Channel fetched successfully"));
     } catch (error) {
         console.log("user controller error", error);
