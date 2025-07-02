@@ -18,6 +18,11 @@ const AWS_REGION = process.env.AWS_REGION;
 const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
+const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID;
+const RAZORPAY_KEY_SECRET= process.env.RAZORPAY_KEY_SECRET;
+const CURRENCY = process.env.CURRENCY || 'INR';
+const  RECEIPT_SECRET = process.env.RECEIPT_SECRET || 'receipt_secret';
+
 
 export {         
         APP_LINK,
@@ -25,6 +30,7 @@ export {
         AWS_BUCKET_NAME,
         AWS_REGION,
         AWS_SECRET_ACCESS_KEY,    
+        CURRENCY,    
         DB_NAME,
         ENABLE_EMAIL_VERIFICATION,
         JWT_EXPIRY,
@@ -34,5 +40,9 @@ export {
         MONGO_DB_URI, 
         NODE_ENV, 
         PORT,
+        RAZORPAY_KEY_ID,
+        RAZORPAY_KEY_SECRET,        
+        RECEIPT_SECRET,        
         REDIS_HOST,    
-        REDIS_PORT    };
+        REDIS_PORT    
+    };
