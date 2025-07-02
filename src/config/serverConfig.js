@@ -14,10 +14,17 @@ const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
 const APP_LINK = process.env.APP_LINK || 'http://localhost:3000';
 const ENABLE_EMAIL_VERIFICATION  = process.env.ENABLE_EMAIL_VERIFICATION  || false;
-
+const AWS_REGION = process.env.AWS_REGION;
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
 
 export {         
         APP_LINK,
+        AWS_ACCESS_KEY_ID,
+        AWS_BUCKET_NAME,
+        AWS_REGION,
+        AWS_SECRET_ACCESS_KEY,    
         DB_NAME,
         ENABLE_EMAIL_VERIFICATION,
         JWT_EXPIRY,
@@ -28,5 +35,4 @@ export {
         NODE_ENV, 
         PORT,
         REDIS_HOST,    
-        REDIS_PORT    
-    };
+        REDIS_PORT    };
