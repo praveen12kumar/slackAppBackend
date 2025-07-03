@@ -41,11 +41,10 @@ export const createOrderController = async(req, res, next) => {
 
 export const capturePaymentController = async(req, res, next) =>{
     try {
-         console.log("REQ BODY", req.body);
-        const {orderId, status, paymentId} = req.body;
+        
+        const {orderId, status, paymentId, signature} = req.body;
        
-        console.log("orderId", orderId, "status", status, "paymentId", paymentId);
-        await updatePaymentStatusService({orderId, status, paymentId})
+        await updatePaymentStatusService({orderId, status, paymentId, signature})
 
         return res.status(StatusCodes.OK).json({
             success:true,
