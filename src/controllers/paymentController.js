@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import razorpay from '../config/razorpay-config.js'
 import { CURRENCY, RECEIPT_SECRET } from "../config/serverConfig.js";
+import { createPaymentService, updatePaymentStatusService } from '../services/paymentService.js';
 import InternalServerError from '../utils/errors/internalServer.js';
 
 
@@ -15,9 +16,12 @@ export const createOrderController = async(req, res, next) => {
         }
 
         const order = await razorpay.orders.create(options);
+
         if(!order){
             throw new Error("Error in creating order");
         }
+
+        await createPaymentService(order.id, order.amount);
 
         return res.status(StatusCodes.OK)
                   .json({
@@ -30,5 +34,26 @@ export const createOrderController = async(req, res, next) => {
     } catch (error) {
         console.log('Error in creating order', error);
         return next (new InternalServerError(error.message));
+    }
+}
+
+
+
+export const capturePaymentController = async(req, res, next) =>{
+    try {
+         console.log("REQ BODY", req.body);
+        const {orderId, status, paymentId} = req.body;
+       
+        console.log("orderId", orderId, "status", status, "paymentId", paymentId);
+        await updatePaymentStatusService({orderId, status, paymentId})
+
+        return res.status(StatusCodes.OK).json({
+            success:true,
+            message:"Payment captured successfully",
+        })
+
+    } catch (error) {
+        console.log('Error in capturing payment', error);
+          return next (new InternalServerError(error.message));   
     }
 }
